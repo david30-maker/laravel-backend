@@ -4,10 +4,18 @@ namespace App\Http\Controllers;
 
 use App\Models\Post;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Controller\HasMiddleware;
 
-class PostController extends Controller
+class PostController extends Controller implements HasMiddleware
 {
-    /**
+    public static function middlware()
+    {
+        return [
+            new Middleware('auth:sanctum', except: ['index', 'show']),
+        ];
+    }
+
+    /**middleware
      * Display a listing of the resource.
      */
     public function index()
@@ -25,7 +33,7 @@ class PostController extends Controller
             'body' => 'required|max:1000',
         ]);
 
-       $post = Post::create($fields);
+       $post = $request->user()->posts()->create($fields);
 
        return $post;
     }
