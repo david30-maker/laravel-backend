@@ -8,7 +8,7 @@ use Illuminate\Routing\Controller\HasMiddleware;
 
 class PostController extends Controller implements HasMiddleware
 {
-    public static function middlware()
+    public static function middleware()
     {
         return [
             new Middleware('auth:sanctum', except: ['index', 'show']),
