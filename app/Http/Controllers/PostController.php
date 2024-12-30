@@ -27,7 +27,7 @@ class PostController extends Controller
 
        $post = Post::create($fields);
 
-       return ['post' => $post];
+       return $post;
     }
 
     /**
@@ -35,7 +35,7 @@ class PostController extends Controller
      */
     public function show(Post $post)
     {
-        //
+        return $post;
     }
 
     /**
@@ -43,7 +43,14 @@ class PostController extends Controller
      */
     public function update(Request $request, Post $post)
     {
-        //
+        $fields = $request->validate([
+            'title' => 'required',
+            'body' => 'required',
+        ]);
+
+        $post->update($fields);
+
+        return $post;
     }
 
     /**
